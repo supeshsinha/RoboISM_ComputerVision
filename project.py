@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import imutils
 import math
-from stacksgo import *
+from stacksgo import *   #Self defined function in stacksgo.py
  
  
 def processImg(img):    #Main Function
@@ -25,7 +25,7 @@ def processImg(img):    #Main Function
             if objCor == 4:         # Difference of lenghts of two adjecent sides using distance formula
                 lendiff= (approx[0][0][0] - approx[1][0][0])**2 + (approx[0][0][1] - approx[1][0][1])**2 - (approx[1][0][0] - approx[2][0][0])**2 - (approx[1][0][1] - approx[2][0][1])**2
 
-                if lendiff > -2000 and lendiff < 2000:      # Difference should be approximately less than 150px
+                if lendiff > -2000 and lendiff < 2000:      # Difference should be approximately less than 50px
                     objectType= "Square"
 
                     id=1
@@ -76,7 +76,7 @@ def processImg(img):    #Main Function
                     small_img = cv2.resize(rotated,(w,h))
                     rows,columns,chanels = small_img.shape
                     small_img_gray = cv2.cvtColor(small_img, cv2.COLOR_RGB2GRAY)
-                    ret, mask = cv2.threshold(small_img_gray, 120, 255, cv2.THRESH_BINARY)
+                    ret, mask = cv2.threshold(small_img_gray, 120, 255, cv2.THRESH_BINARY)      # Converting image into binary
                     bg = cv2.bitwise_not(roi,roi,mask = mask)
                     fg = cv2.bitwise_and(small_img,small_img, mask=mask)
                     final_roi = cv2.add(bg,fg)              # Pasting Aruco over the squares
